@@ -1,0 +1,54 @@
+<view class='container'>
+	<mp-navigation-bar loading="{{false}}" show="{{true}}" animated="{{false}}" color="#000" background="rgb(233, 225, 200)" title="BGM小屋" back="{{false}}" left>
+		<image slot="left" class='title-left' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/music.ico?sign=fe3c3c722238ec74936ae37d665e3747&t=1578803335'></image>
+	</mp-navigation-bar>
+
+	<view class='type'>
+		<view wx:for='{{typeList}}' wx:key='type' class='item-type' bindtap='selectType' data-title='{{item.title}}'>
+			<view class='{{item.selected?"selected":"not-selected"}}'>{{item.title}}</view>
+		</view>
+	</view>
+	<view class='player'>
+		<view class='player-bg' bindtap="displayTip" wx:if='{{noLove}}'></view>
+		<view class='pic'>
+			<image class='img {{imgRotate}}}' src='{{musicList[index].img}}'></image>
+		</view>
+		<view class='name'>{{musicList[index].name}}</view>
+		<view class='singer'>{{musicList[index].singer}}</view>
+	</view>
+	<view class='bottom'>
+		<view class='bottom-bg' bindtap="displayTip" wx:if='{{noLove}}'></view>
+		<view class='love-clock'>
+			<image class='love' wx:if='{{myLove}}' bindtap='cancelLove' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/love-selected.ico?sign=dbbe199b9e47f6b3bcdbe822d62b9d92&t=1578405407'></image>
+			<image class='love' wx:else bindtap='addLove' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/love-2.ico?sign=13b3363767c5078aabf47bb6c6e86285&t=1577112460'></image>
+			<image class='clock' bindtap='addClock' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/clock.ico?sign=558451fa11279614a983ba92c4b99f2b&t=1577112525'></image>
+		</view>
+		<view class='progress'>
+			<view class='time-start'>{{currentTime}}</view>
+			<slider bindchange="sliderChange" activeColor='rgb(239, 207, 110)' value='{{currentProgress}}' min="0" max="100" block-size='16' />
+			<view class='time-end'>{{endTime}}</view>
+		</view>
+		<view class='control'>
+			<view class='left' bindtap="changeCircle">
+				<image class='circle' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/%E5%BE%AA%E7%8E%AF%E6%92%AD%E6%94%BE%20.ico?sign=a26746860369cdeeb975813923cf1117&t=1578203872'></image>
+				<view class='one' wx:if='{{oneCircle}}'>1</view>
+			</view>
+			<image class='prev' bindtap='prev' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/prev.ico?sign=1493b9a452f2f09d510c8a5ec506e9a7&t=1577111714'></image>
+			<image wx:if='{{playing}}' class='play' bindtap="toggle" src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/%E6%9A%82%E5%81%9C.ico?sign=5ba7d3472a91faab8d95ac7d7d2488e8&t=1577872848'></image>
+			<image wx:else class='play' bindtap="toggle" src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/play.ico?sign=761bd858dcdc68734732fae97463cc94&t=1577111738'></image>
+			<image class='next' bindtap='next' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/next.ico?sign=832959ae5fe14864cf95d8561280ce9b&t=1577111754'></image>
+			<image class='right' src='https://686a-hj1-r3kyb-1300911614.tcb.qcloud.la/images/%E6%AD%8C%E6%9B%B2%E5%88%97%E8%A1%A8.ico?sign=3c3ca93758fb85b4f364ba273f866e30&t=1578202276' bindtap='list'></image>
+		</view>
+	</view>
+	<view class='bg' hidden='{{hideList}}' bindtap='close'></view>
+	<view hidden='{{hideList}}' class='music-container {{move}}'>
+		<view class='music-type'>{{currentType}}</view>
+		<view class='music-list'>
+			<view wx:for='{{musicList}}' wx:for-index='idx' class='music-item' bindtap='selectMusic' data-index='{{idx}}' class='{{idx===index?"music-selected":"not-music-selected"}}'>
+				<view>{{idx+1}} <label style='margin-left:10rpx;'>{{item.name}}</label></view>
+				<view>{{item.singer}}</view>
+			</view>
+		</view>
+		<view class='close-text' bindtap='close'>关闭</view>
+	</view>
+</view>
